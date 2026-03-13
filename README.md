@@ -5,9 +5,7 @@
 
 This is the final project repository for group Lizzards in the "Projects in Data Science" course at IT University of Copenhagen, with the following contributors: Simon Friland, Hunor Szabó, Marcus Pedersen, Viky Kapičáková & Sofie Pedersen.
 
-The goal of our project is [placeholder]...  
- 
-Your repository MUST be named 2026-PDS-XX where XX is your group name (e.g. 2026-PDS-Pandas). 
+The goal of our project is [placeholder]...   
 
 #### Python environment
 
