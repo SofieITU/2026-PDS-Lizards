@@ -3,7 +3,7 @@
 
 #### Overview
 
-This is the final project repository for group Lizzards in the "Projects in Data Science" course at IT University of Copenhagen, with the following contributors: [placeholder], [placeholder], [placeholder], [placeholder], [placeholder].
+This is the final project repository for group Lizzards in the "Projects in Data Science" course at IT University of Copenhagen, with the following contributors: Simon Friland, Hunor Szabó, Marcus Pedersen, Viky Kapičáková & Sofie Pedersen.
 
 The goal of our project is [placeholder]...  
  
