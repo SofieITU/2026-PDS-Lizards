@@ -16,6 +16,32 @@ from scipy.stats import circmean, circvar, circstd
 from statistics import variance, stdev
 from scipy.spatial import ConvexHull
 
+import matplotlib.pyplot as plt
+data_path = 'data/'
+
+def load_image_and_mask(image_id, data_path=data_path):
+    '''
+    Docstring for load_image
+    
+    :param image_id: "img_id" from metadata.csv
+    :param data_path: Relative path of the data folder
+
+    This functions takes as input an image ID, 
+    and returns the corresponding image and mask 
+    (found in "/data/imgs/" and "/data/masks/" respectively)
+    as an array
+    '''
+    
+    img_path = data_path + "imgs/"
+    mask_path = data_path + "masks/"
+
+    # Load the image/mask
+    file_im = img_path + image_id
+    file_mask = (mask_path + image_id).replace(".png", "_mask.png")
+    im = plt.imread(file_im)
+    mask = plt.imread(file_mask)
+    
+    return im, mask
 
 def extract_features(row, data_path=data_path):
 
