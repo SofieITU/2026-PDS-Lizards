@@ -30,8 +30,10 @@ class Picture:
         # Step 1 call feature_hair (need greyscale)
         self.blackhat, self.hair_mask, self.hairless = feature_hair.removeHair(self.img_org, self._grey)
         # Step 2 call feature_pen (on hair removed pic)
+        self.clean_image, self.pen_mask = feature_pen_marks.remove_pen_marks(self.hairless, self.mask_img)
         
-        return 
+        
+        return self.clean_image
 # ------------------
 def process_single_image(row_data):
     """This is an optimisation solution, multiprocessing. One CPU core will run this for one image."""
@@ -69,6 +71,7 @@ if __name__ == "__main__":
             "[Color placeholder]": "placeholder",
             "Cancerous": 1 if row["diagnostic"] in cancerous else 0
         })
+
 
 
     # tasks = df.to_dict('records')
