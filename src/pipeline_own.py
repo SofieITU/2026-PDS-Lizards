@@ -34,7 +34,7 @@ class Picture:
         return 
 # ------------------
 def process_single_image(row_data):
-    """This is the 'worker' function. One CPU core will run this for one image."""
+    """This is an optimisation solution, multiprocessing. One CPU core will run this for one image."""
     img_id = row_data["img_id"]
     diagnostic = row_data["diagnostic"]
     
@@ -61,22 +61,25 @@ if __name__ == "__main__":
 
     for _, row in df.iterrows():
         img = Picture(row["img_id"])
-            
+        
         rows.append({
             "ID": img.input_ID,
             "Asymmetry": feature_A.get_asymmetry(img.mask_img),
             "Border": feature_B.get_compactness(img.mask_img),
             "[Color placeholder]": "placeholder",
-        "Cancerous": 1 if row["diagnostic"] in cancerous else 0
+            "Cancerous": 1 if row["diagnostic"] in cancerous else 0
         })
 
-    #tasks = df.to_dict('records')
-    #with concurrent.futures.ProcessPoolExecutor() as executor:
-    #    # The executor maps the worker function to every task in the list simultaneously
-    #    results_list = list(executor.map(process_single_image, tasks))
+
+    # tasks = df.to_dict('records')
+    # with concurrent.futures.ProcessPoolExecutor() as executor:
+    #     # The executor maps the worker function to every task in the list simultaneously
+    #     results_list = list(executor.map(process_single_image, tasks))
+    # features = pd.DataFrame(results_list)
+
+
 
     features = pd.DataFrame(rows)
-    #features = pd.DataFrame(results_list)
     end = time.time()
     print(features)
     print(f"Time it took: {end-start}s")
