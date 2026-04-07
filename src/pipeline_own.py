@@ -59,24 +59,24 @@ if __name__ == "__main__":
     # Getting all the unique IMG IDs 
     df = pd.read_csv("adjacent_metadata_small.csv")
 
-    # for _, row in df.iterrows():
-    #     img = Picture(row["img_id"])
-        
-    #     rows.append({
-    #         "ID": img.input_ID,
-    #         "Asymmetry": feature_A.get_asymmetry(img.mask_img),
-    #         "Border": feature_B.get_compactness(img.mask_img),
-    #         "[Color placeholder]": "placeholder",
-    #         "Cancerous": 1 if row["diagnostic"] in cancerous else 0
-    #     })
+    for _, row in df.iterrows():
+        img = Picture(row["img_id"])
+            
+        rows.append({
+            "ID": img.input_ID,
+            "Asymmetry": feature_A.get_asymmetry(img.mask_img),
+            "Border": feature_B.get_compactness(img.mask_img),
+            "[Color placeholder]": "placeholder",
+        "Cancerous": 1 if row["diagnostic"] in cancerous else 0
+        })
 
-    tasks = df.to_dict('records')
-    with concurrent.futures.ProcessPoolExecutor() as executor:
-        # The executor maps the worker function to every task in the list simultaneously
-        results_list = list(executor.map(process_single_image, tasks))
+    #tasks = df.to_dict('records')
+    #with concurrent.futures.ProcessPoolExecutor() as executor:
+    #    # The executor maps the worker function to every task in the list simultaneously
+    #    results_list = list(executor.map(process_single_image, tasks))
 
-    #features = pd.DataFrame(rows)
-    features = pd.DataFrame(results_list)
+    features = pd.DataFrame(rows)
+    #features = pd.DataFrame(results_list)
     end = time.time()
     print(features)
     print(f"Time it took: {end-start}s")
