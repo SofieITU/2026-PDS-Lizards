@@ -1,9 +1,32 @@
-def get_compactness(mask):
-    # mask = color.rgb2gray(mask)
-    area = np.sum(mask)
+def compactness_score(mask):
+    '''Computes a compactness score for the given mask.
+    The score is based of the Polsby-Popper measure.
+    The score falls between the value 0 and 1. Scores closer to 1 indicates a more compact mask.
 
-    struct_el = morphology.disk(3)
+    Args:
+        mask (numpy.ndarray): input masked image
+
+    Returns:
+        compactness_score (float): Float between 0 and 1 indicating compactness.
+    '''
+
+     #Area of ground truth
+    A = np.sum(mask)
+
+    #Structural element, that we will use as a "brush" on our mask
+    struct_el = morphology.disk(2)
+
+    # Use this "brush" to erode the image - eat away at the borders
     mask_eroded = morphology.binary_erosion(mask, struct_el)
-    perimeter = np.sum(mask - mask_eroded)
 
-    return perimeter**2 / (4 * np.pi * area)
+    #Finding the perimeter of the ground truth
+    perimeter = mask - mask_eroded
+
+    #Length of the perimeter
+    l = np.sum(perimeter)
+
+    compactness = (4*pi*A)/(l**2)
+
+    score = round(1-compactness, 3)
+
+    return compactness
