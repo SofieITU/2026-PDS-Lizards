@@ -1,5 +1,6 @@
 import numpy as np
 from skimage import morphology
+from math import pi
 
 def compactness_score(mask):
     '''Computes a compactness score for the given mask.
@@ -23,7 +24,7 @@ def compactness_score(mask):
     mask_eroded = morphology.binary_erosion(mask, struct_el)
 
     #Finding the perimeter of the ground truth
-    perimeter = mask - mask_eroded
+    perimeter = mask ^ mask_eroded
 
     #Length of the perimeter
     l = np.sum(perimeter)
