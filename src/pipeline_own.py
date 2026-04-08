@@ -1,5 +1,4 @@
 import pandas as pd
-import matplotlib.pyplot as plt
 import feature_hair, feature_pen_marks, feature_A, feature_B, feature_C # all of our features
 import cv2
 import pandas as pd
@@ -31,8 +30,6 @@ class Picture:
         self.blackhat, self.hair_mask, self.hairless = feature_hair.removeHair(self.img_org, self._grey)
         # Step 2 call feature_pen (on hair removed pic)
         self.clean_image, self.pen_mask = feature_pen_marks.remove_pen_marks(self.hairless, self.mask_img)
-        
-        
         return self.clean_image
 # ------------------
 def process_single_image(row_data):
@@ -58,7 +55,7 @@ if __name__ == "__main__":
     rows = []
     patient_IDs = []
 
-    # Getting all the unique IMG IDs 
+    # # Getting all the unique IMG IDs 
     df = pd.read_csv("adjacent_metadata_small.csv")
 
     for _, row in df.iterrows():
@@ -72,15 +69,11 @@ if __name__ == "__main__":
             "Cancerous": 1 if row["diagnostic"] in cancerous else 0
         })
 
-
-
     # tasks = df.to_dict('records')
     # with concurrent.futures.ProcessPoolExecutor() as executor:
     #     # The executor maps the worker function to every task in the list simultaneously
     #     results_list = list(executor.map(process_single_image, tasks))
     # features = pd.DataFrame(results_list)
-
-
 
     features = pd.DataFrame(rows)
     end = time.time()
