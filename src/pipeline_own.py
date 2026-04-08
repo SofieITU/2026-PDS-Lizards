@@ -43,7 +43,7 @@ def process_single_image(row_data):
     feature_dict = {
         "ID": img.input_ID,
         "Asymmetry": feature_A.get_asymmetry(img.mask_img),
-        "Border": feature_B.get_compactness(img.mask_img),
+        "Border": feature_B.compactness_score(img.mask_img),
         "[Color placeholder]": "placeholder",
         "Cancerous": 1 if diagnostic in {"BCC", "MEL", "SCC"} else 0
     }
@@ -64,7 +64,7 @@ if __name__ == "__main__":
         rows.append({
             "ID": img.input_ID,
             "Asymmetry": feature_A.get_asymmetry(img.mask_img),
-            "Border": feature_B.get_compactness(img.mask_img),
+            "Border": feature_B.compactness_score(img.mask_img),
             "[Color placeholder]": "placeholder",
             "Cancerous": 1 if row["diagnostic"] in cancerous else 0
         })
