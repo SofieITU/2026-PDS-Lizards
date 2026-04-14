@@ -76,7 +76,7 @@ if __name__ == "__main__":
     # features = pd.DataFrame(results_list)
 
     features = pd.DataFrame(rows)
-    features.to_csv("feature_extraction.csv")
+    features.to_csv("../data/features.csv")
     end = time.time()
     print(features)
     print(f"Time it took: {end-start}s")
