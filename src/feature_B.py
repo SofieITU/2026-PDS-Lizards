@@ -33,4 +33,4 @@ def compactness_score(mask):
 
     score = round(1-compactness, 3)
 
-    return compactness
+    return score
