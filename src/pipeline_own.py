@@ -16,10 +16,13 @@ class Picture:
         self.img_file = img_path + self.input_ID
         self.mask_file = (mask_path + self.input_ID).replace(".png","_mask.png")
         self.mask_img = cv2.imread(self.mask_file, cv2.IMREAD_GRAYSCALE)
+        self.mask_img = cv2.resize(self.mask_img, (128,128))
         self.mask_img = self.mask_img > 0
         self.img_org = cv2.imread(self.img_file)
-        self.img_org = cv2.cvtColor(self.img_org, cv2.COLOR_BGR2RGB)  # convert to RGB for matplotlib
+        self.img_org = cv2.resize(self.img_org,(128,128))
+        #self.img_visual = cv2.cvtColor(self.img_org, cv2.COLOR_BGR2RGB)  # convert to RGB for matplotlib
         self._grey = cv2.cvtColor(self.img_org, cv2.COLOR_RGB2GRAY)  #img_file
+
 
     def mask(self) -> list:
         return self.mask_file
@@ -61,27 +64,27 @@ if __name__ == "__main__":
     # # Getting all the unique IMG IDs 
     df = pd.read_csv("adjacent_metadata_small.csv")
 
-    # for _, row in df.iterrows():
-    #     img = Picture(row["img_id"])
-    #     img_clean = img.clean_picture()
+    for _, row in df.iterrows():
+        img = Picture(row["img_id"])
+        img_clean = img.clean_picture()
 
-    #     rows.append({
-    #         "ID": img.input_ID,
-    #         "Asymmetry": feature_A.get_asymmetry(img.mask_img),
-    #         "Border": feature_B.compactness_score(img.mask_img),
-    #         "HSV_Hue_Variance": feature_C.hsv_var(img_clean,img.mask_img)[0],
-    #         "HSV_Saturation_Variance": feature_C.hsv_var(img_clean,img.mask_img)[1],
-    #         "HSV_Value_Variance": feature_C.hsv_var(img_clean,img.mask_img)[2],
-    #         "Cancerous": 1 if row["diagnostic"] in cancerous else 0
-    #     })
+        rows.append({
+            "ID": img.input_ID,
+            "Asymmetry": feature_A.get_asymmetry(img.mask_img),
+            "Border": feature_B.compactness_score(img.mask_img),
+            "HSV_Hue_Variance": feature_C.hsv_var(img_clean,img.mask_img)[0],
+            "HSV_Saturation_Variance": feature_C.hsv_var(img_clean,img.mask_img)[1],
+            "HSV_Value_Variance": feature_C.hsv_var(img_clean,img.mask_img)[2],
+            "Cancerous": 1 if row["diagnostic"] in cancerous else 0
+        })
 
-    tasks = df.to_dict('records')
-    with concurrent.futures.ProcessPoolExecutor() as executor:
-        # The executor maps the worker function to every task in the list simultaneously
-        results_list = list(executor.map(process_single_image, tasks))
-    features = pd.DataFrame(results_list)
+    # tasks = df.to_dict('records')
+    # with concurrent.futures.ProcessPoolExecutor() as executor:
+    #     # The executor maps the worker function to every task in the list simultaneously
+    #     results_list = list(executor.map(process_single_image, tasks))
+    # features = pd.DataFrame(results_list)
 
-    #features = pd.DataFrame(rows)
+    features = pd.DataFrame(rows)
     features.to_csv("../data/features.csv")
     end = time.time()
     print(features)
