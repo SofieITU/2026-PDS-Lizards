@@ -1,14 +1,13 @@
 import numpy as np
 from sklearn.cluster import KMeans
-from skimage import color
 from skimage.segmentation import slic
-from skimage.color import rgb2hsv, hsv2rgb
-from statistics import variance, stdev
-from scipy.stats import circmean, circvar, circstd
-from math import sqrt, floor, ceil, nan, pi
+from skimage.color import rgb2hsv
+from statistics import variance
+from scipy.stats import circmean, circvar
+from math import nan
 
 # this functions spilts the image in n segments and is used by all of the functions
-def slic_segmentation(image, mask, n_segments = 50, compactness = 0.1):
+def slic_segmentation(image, mask, n_segments = 20, compactness = 0.1):
     '''Get color segments of lesion from SLIC algorithm.
     Optional argument n_segments (defualt 50) defines desired amount of segments.
     Optional argument compactness (defualt 0.1) defines balance between color
