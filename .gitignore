@@ -4,3 +4,4 @@ metadata_with_group.csv
 test.ipynb
 __pycache__/
 .vscode/
+.DS_Store
