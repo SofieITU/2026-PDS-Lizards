@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from imblearn.over_sampling import SMOTE
 
-df = pd.read_csv('2026-PDS-Lizards\\data\\features.csv', index_col=0)  # Insert own path to features.csv
+df = pd.read_csv('../data/features.csv', index_col=0)  # Insert own path to features.csv
 
 print("Original dataset:")
 print(df['Cancerous'].value_counts())
@@ -28,4 +28,4 @@ SMOTE_df['Cancerous'] = y_smote
 SMOTE_df.insert(0, 'ID', range(1, len(SMOTE_df) + 1))
 
 # Save to CSV
-SMOTE_df.to_csv('features_SMOTE.csv', index=False)
+SMOTE_df.to_csv('../data/features_SMOTE.csv', index=False)
