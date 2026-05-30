@@ -17,7 +17,9 @@ def midpointGroup4(mask):
 def crop(mask):
     mid = midpointGroup4(mask)
     y_nonzero, x_nonzero = np.nonzero(mask)
-    
+    if len(y_nonzero) == 0 or len(x_nonzero) == 0:
+        return mask
+
     y_lims = [np.min(y_nonzero), np.max(y_nonzero) + 1]
     x_dist = max(abs(np.min(x_nonzero) - mid), abs(np.max(x_nonzero) - mid))
     x_start = max(0, mid - x_dist)

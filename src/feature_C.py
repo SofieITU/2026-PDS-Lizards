@@ -60,6 +60,8 @@ def hsv_var(image, mask):
         sat_var (float): variance in saturation channel segment means
         val_var (float): variance in value channel segment means.
     '''
+    if np.count_nonzero(mask) == 0:
+        return (0.0, 0.0)
     slic_segments = slic_segmentation(image, mask)
 
     if image.shape[-1] == 4:
