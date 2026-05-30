@@ -65,8 +65,8 @@ def main(features_path, prediction_results_path, model_path, load_model):
 
 if __name__ == "__main__":
     features_path = "data/hog_features.csv" # CHANGE THIS TO LOAD YOUR DATASET 
-    prediction_results_path = "results/predictions/rf_predictions.csv" 
-    model_path = "results/models/random_forest.joblib"
+    prediction_results_path = "results/predictions/rf_predictions_hog.csv" 
+    model_path = "results/models/random_forest_hog.joblib"
     load_model = True
 
     main(features_path, prediction_results_path,model_path,load_model)
