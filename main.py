@@ -29,6 +29,7 @@ def main(features_path, prediction_results_path, model_path, load_model):
     if load_model:
         # load the model
         model = joblib.load(model_path)
+        print("Done")
     else:
         # train the classifier (using logistic regression as an example)
         model = RandomForestClassifier(n_estimators=250, max_depth=6, class_weight="balanced",random_state=42)
@@ -42,6 +43,13 @@ def main(features_path, prediction_results_path, model_path, load_model):
     model_predictions = model.predict(X_test)
     probabilities = model.predict_proba(X_test)[:,1]
 
+    plt.figure(figsize=(6,4))
+    sns.heatmap(confusion_matrix(y_test, model_predictions), annot=True, fmt='d', cmap='Blues')
+    plt.title(f"Random Forest Classifier with HOG\n(0=Benign, 1=Cancer)")
+    plt.ylabel('Actual Truth')
+    plt.xlabel(f'Model Prediction\nScore: {model.score(X_test, y_test)}')
+    plt.savefig(f"results/predictions/confusion_matrix.png", dpi = 200, bbox_inches = "tight")
+
     # write test results to CSV.
     prediction_csv = pd.DataFrame({
         "image_id" : id_test,
@@ -52,11 +60,13 @@ def main(features_path, prediction_results_path, model_path, load_model):
     prediction_csv = prediction_csv[["image_id","patient_id","label","probability"]]
     prediction_csv.to_csv(prediction_results_path, index=False)
 
+    
+
 
 if __name__ == "__main__":
-    features_path = "data/features.csv"
-    prediction_results_path = "results/predictions/predictions_MODEL.csv"
-    model_path = "results/predictions/predictions_MODEL.csv"
-    load_model = False
+    features_path = "data/hog_features.csv" # CHANGE THIS TO LOAD YOUR DATASET 
+    prediction_results_path = "results/predictions/rf_predictions.csv" 
+    model_path = "results/models/random_forest.joblib"
+    load_model = True
 
     main(features_path, prediction_results_path,model_path,load_model)
