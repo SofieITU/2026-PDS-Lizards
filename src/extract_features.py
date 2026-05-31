@@ -60,7 +60,7 @@ if __name__ == "__main__":
        'skin_cancer_history', 'cancer_history', 'has_piped_water',
        'has_sewage_system', 'fitspatrick', 'region', 'diameter_1',
        'diameter_2','itch', 'grew', 'hurt', 'changed', 'bleed',
-       'elevation','biopsed', 'group_id'])
+       'elevation','biopsed', 'group_id'], errors="ignore")
     df = df.head(500) # CHANGE THIS TO THE DESIRED NUMBER OF PICTURES OR COMMENT IT OUT FOR THE WHOLE DATA SET! 
 
     for _, row in df.iterrows():
