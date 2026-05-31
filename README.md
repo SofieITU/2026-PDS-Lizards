@@ -5,15 +5,22 @@
 
 This is the final project repository for group Lizzards in the "Projects in Data Science" course at IT University of Copenhagen, with the following contributors: Simon Friland, Hunor Szabó, Marcus Pedersen, Viky Kapičáková & Sofie Pedersen.
 
-The goal of our project is [placeholder]...   
+The goal of our project is to create a machine learning algortihm that could classify benign and cancerous lesions. This is a first year's project, therefore the algorithm might not have a good performance that could be used in medical assesment, however our goal    
 
-#### Python environment
+#### Python environment 
 
-Follow TA instructions when setting up the Python environment before running any code. Remember to export your Python library requirements by `pip freeze > requirements.txt` and attach it to the repo so we can evaluate your scripts.
+Generally, we used Anaconda python enviroment, to make sure all modules work correctly use 'pip install -r requirements.txt'
+
+### Instructions
+
+- Open 'extract_features.py' file and change data path section to desired.
+- In the dataframe section, 'df', change the path if needed, to extract the patient IDs
+- Run 'extract_features.py' to generate 'features.csv' in 'data/' folder
+- Open 'main.py' and change 'features_path'
+- Run the code, which trains the model and saves it to 'predictions/model/name_of_the_model.joblib'
+- Set 'load_model' to True and run the code on desired dataset, which should make prediction csv file and confusion matrix in 'results/predictions/' folder
 
 #### File Hierarchy
-
-The file hierarchy of your hand-in repo should be as follows:
 
 ```
 ProjectInDataScience2026_ExamTemplate/
@@ -51,8 +58,3 @@ ProjectInDataScience2026_ExamTemplate/
 ├── main.py                             # script to train or evaluate models
 └── README.md
 ```
-
-**Notes:**
-
-1. DO NOT upload your data (images) to Github.
-2. When the same code block needs to be executed multiple times in the script, make it a custom function instead. All the custom functions and modules should be grouped into different files under the *"src"* subfolder, based on the task they are designed for. Do not put everything in a single Python file or copy-paste the same code block across the script.
